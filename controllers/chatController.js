@@ -8,18 +8,23 @@ const createChatRoom = (req, res) => {
   newChatRoom
     .save()
     .then((chatRoom) => {
-      res.json(chatRoom);
+      res.status(201).json({ status: 'success', data: chatRoom });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ status: 'error', message: 'Failed to create chat room' });
+    });
 };
-
 
 const getChatRooms = (req, res) => {
   ChatRoom.find()
     .then((chatRooms) => {
-      res.json(chatRooms);
+      res.status(200).json({ status: 'success', data: chatRooms });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ status: 'error', message: 'Failed to retrieve chat rooms' });
+    });
 };
 
 // Export the chat controllers
